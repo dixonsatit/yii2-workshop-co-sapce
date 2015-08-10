@@ -13,13 +13,28 @@ use Yii;
  * @property integer $value
  * @property string $year
  * @property integer $level
- * @property string $hospitall_code
+ * @property string $hospitall_id
  *
  * @property KpiItem $kpi
  * @property User $user
  */
 class EvauateScore extends \yii\db\ActiveRecord
 {
+  public function behaviors()
+  {
+      return [
+          [
+              'class' => TimestampBehavior::className(),
+              'createdAtAttribute' => 'created_at',
+              'updatedAtAttribute' => 'updated_at'
+          ],
+          [
+              'class' => BlameableBehavior::className(),
+              'createdByAttribute'=>'user_id',
+              'updatedByAttribute' => 'user_id',
+          ]
+      ];
+  }
     /**
      * @inheritdoc
      */
@@ -36,8 +51,8 @@ class EvauateScore extends \yii\db\ActiveRecord
         return [
             [['kpi_id', 'user_id', 'value', 'level'], 'integer'],
             [['year'], 'string', 'max' => 4],
-            [['hospitall_code'], 'string', 'max' => 6],
-            [['kpi_id', 'user_id', 'year', 'level', 'hospitall_code'], 'unique', 'targetAttribute' => ['kpi_id', 'user_id', 'year', 'level', 'hospitall_code'], 'message' => 'The combination of Kpi ID, User ID, Year, Level and Hospitall Code has already been taken.']
+            [['hospitall_id'], 'string', 'max' => 6],
+            [['kpi_id', 'user_id', 'year', 'level', 'hospitall_id'], 'unique', 'targetAttribute' => ['kpi_id', 'user_id', 'year', 'level', 'hospitall_id'], 'message' => 'The combination of Kpi ID, User ID, Year, Level and Hospitall Code has already been taken.']
         ];
     }
 
@@ -53,7 +68,7 @@ class EvauateScore extends \yii\db\ActiveRecord
             'value' => Yii::t('app', 'Value'),
             'year' => Yii::t('app', 'Year'),
             'level' => Yii::t('app', 'Level'),
-            'hospitall_code' => Yii::t('app', 'Hospitall Code'),
+            'hospitall_id' => Yii::t('app', 'Hospitall Code'),
         ];
     }
 

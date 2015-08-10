@@ -12,7 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    
+<?php
+
+foreach ($kpiItem as $item) {
+    echo $form->field($setting, "[$index]value")->label($setting->name);
+}
+ ?>
     <?= $form->field($model, 'kpi_id')->textInput() ?>
 
     <?= $form->field($model, 'user_id')->textInput() ?>
@@ -23,7 +28,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'level')->textInput() ?>
 
-    <?= $form->field($model, 'hospitall_code')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

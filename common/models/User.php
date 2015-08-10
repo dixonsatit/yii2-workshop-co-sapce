@@ -82,6 +82,7 @@ class User extends ActiveRecord implements IdentityInterface
              ['confirm_password', 'compare','compareAttribute'=>'password'],
 
              ['role', 'safe'],
+             ['level', 'integer'],
 
          ];
      }

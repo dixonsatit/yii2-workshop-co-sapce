@@ -68,22 +68,33 @@ class EvauateScoreController extends Controller
      */
     public function actionCreate($hospital_id)
     {
-        $model = new EvauateScore();
-        $group = Group::find()->all();
+        $model   = new EvauateScore();
+        $group   = Group::find()->all();
+        $kpiItem = KpiItem::find()->indexBy('id')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
-                'group'=>$group
+                'model'   => $model,
+                'group'   => $group,
+                'kpiItem' => $kpiItem,
             ]);
         }
     }
 
-    public function createRecord($hospital_id){
-      $group = KpiItem::find()->all();
-      foreach()
+    public function createRecord($hospital_id,$year){
+      $items = KpiItem::find()->indexBy('id')->all();
+      $evauateScores = [];
+      foreach($items as $item){
+        $evauateScores[] = new EvauateScore({
+          'kpi_id'=>$item->id,
+          'year' => $year,
+          'level' => Yii::$app->app->user->identity->level
+          'hospitall_id'=>$hospital_id
+        });
+      }
+      return $evauateScores;
     }
 
     /**

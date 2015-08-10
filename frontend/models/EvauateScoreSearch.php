@@ -19,7 +19,7 @@ class EvauateScoreSearch extends EvauateScore
     {
         return [
             [['id', 'kpi_id', 'user_id', 'value', 'level'], 'integer'],
-            [['year', 'hospitall_code'], 'safe'],
+            [['year', 'hospital_id'], 'safe'],
         ];
     }
 
@@ -64,7 +64,7 @@ class EvauateScoreSearch extends EvauateScore
         ]);
 
         $query->andFilterWhere(['like', 'year', $this->year])
-            ->andFilterWhere(['like', 'hospitall_code', $this->hospitall_code]);
+            ->andFilterWhere(['like', 'hospital_id', $this->hospital_id]);
 
         return $dataProvider;
     }
