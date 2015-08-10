@@ -89,3 +89,16 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.radio-center.table input[type="radio"] {
+  position: static!important;
+  margin-left: 25px;
+}
+.radio-center .radio,.radio-center .form-group{
+  margin-left: 13px!important;
+  margin-bottom: 0!important;
+  margin-top:5px!important;
+}
+.radio-center.table tbody tr{
+  line-height: 20px;
+}

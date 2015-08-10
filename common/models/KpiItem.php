@@ -64,4 +64,9 @@ class KpiItem extends \yii\db\ActiveRecord
     {
         return new KpiItemQuery(get_called_class());
     }
+
+    public function getGroup()
+    {
+        return $this->hasOne(Group::className(),['id'=>'group_id']);
+    }
 }

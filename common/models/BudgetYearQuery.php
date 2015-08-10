@@ -3,21 +3,21 @@
 namespace common\models;
 
 /**
- * This is the ActiveQuery class for [[Group]].
+ * This is the ActiveQuery class for [[BudgetYear]].
  *
- * @see Group
+ * @see BudgetYear
  */
-class GroupQuery extends \yii\db\ActiveQuery
+class BudgetYearQuery extends \yii\db\ActiveQuery
 {
-    public function byHead()
+    /*public function active()
     {
-        $this->andWhere('parent_id is null');
+        $this->andWhere('[[status]]=1');
         return $this;
-    }
+    }*/
 
     /**
      * @inheritdoc
-     * @return Group[]|array
+     * @return BudgetYear[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +26,7 @@ class GroupQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Group|array|null
+     * @return BudgetYear|array|null
      */
     public function one($db = null)
     {

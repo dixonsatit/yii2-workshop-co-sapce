@@ -25,6 +25,7 @@ class EvauateScore extends \yii\db\ActiveRecord
 {
   public $theMust;
   public $theBest;
+  public $groupName;
 
   public function behaviors()
   {
@@ -55,6 +56,15 @@ class EvauateScore extends \yii\db\ActiveRecord
               ],
               'value' => function ($event) {
                   return $this->kpi->the_best;
+              },
+          ],
+          [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_AFTER_FIND => 'groupName'
+              ],
+              'value' => function ($event) {
+                  return $this->kpi->group->name;
               },
           ]
       ];

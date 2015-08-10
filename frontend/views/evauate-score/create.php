@@ -16,8 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
       'models' => $models,
-      'group'=>$group,
-      'kpiItem'=>$kpiItem
+      'hospital_id'=>$hospital_id,
+      'group_id'=>$group_id,
+      'sumTheMust' => $sumTheMust,
+      'sumTheBest' => $sumTheBest
     ]) ?>
 
 </div>

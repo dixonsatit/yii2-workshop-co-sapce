@@ -38,6 +38,7 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Manage','items'=>[
           ['label' => 'User Manage', 'url' => ['/user-manage/index']],
+          ['label' => 'Budget Year', 'url' => ['/budget-year/index']],
           ['label' => 'Hospital', 'url' => ['/hospital/index']],
           ['label' => 'KPI-Items', 'url' => ['/kpi-item/index']],
           ['label' => 'Group', 'url' => ['/group/index']],

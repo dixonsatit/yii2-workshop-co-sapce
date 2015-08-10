@@ -66,23 +66,27 @@ class EvauateScoreController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($hospital_id)
+    public function actionCreate($hospital_id,$group_id=null)
     {
-        $models   = $this->loadEvauateScoreModels($hospital_id,'2558');
-        $group    = Group::find()->all();
-        $kpiItem  = KpiItem::find()->indexBy('id')->all();
+        $group_id = $this->loadDefaultGroup($group_id);
+        $models   = $this->loadEvauateScoreModels($hospital_id,'2558',$group_id);
+
+        $sumTheMust  = $this->loadSummary($hospital_id,'2558',$group_id,1);
+        $sumTheBest  = $this->loadSummary($hospital_id,'2558',$group_id,2);
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             foreach ($models as $model) {
                 $model->save(false);
             }
-            return $this->redirect(['evauate-score/create','hospital_id'=>$hospital_id]);
+            return $this->redirect(['evauate-score/create','hospital_id'=>$hospital_id,'group_id'=>$group_id]);
         }
 
         return $this->render('create', [
             'models'   => $models,
-            'group'   => $group,
-            'kpiItem' => $kpiItem,
+            'hospital_id' => $hospital_id,
+            'group_id' => $group_id,
+            'sumTheMust' => $sumTheMust,
+            'sumTheBest' => $sumTheBest
         ]);
     }
 
@@ -92,12 +96,12 @@ class EvauateScoreController extends Controller
      * @param  string $year
      * @return array  EvauateScore
      */
-    public function loadEvauateScoreModels($hospital_id,$year){
-      $models = $this->findEvauateScoreModels($hospital_id,$year);
+    public function loadEvauateScoreModels($hospital_id,$year,$group_id){
+      $models = $this->findEvauateScoreModels($hospital_id,$year,$group_id);
       if(count($models)>0){
         return $models;
       }else{
-        return $this->createEvauateScoreModels($hospital_id,$year);
+        return $this->createEvauateScoreModels($hospital_id,$year,$group_id);
       }
     }
 
@@ -107,12 +111,26 @@ class EvauateScoreController extends Controller
      * @param  [type] $year        [description]
      * @return [type]              [description]
      */
-    public function findEvauateScoreModels($hospital_id,$year){
+    public function findEvauateScoreModels($hospital_id,$year,$group_id){
       $evauateScores = EvauateScore::find()
         ->byUser()
         ->byHospital($hospital_id)
         ->byYear($year)
+        ->byGroup($group_id)
         ->all();
+      return $evauateScores;
+    }
+
+    public function loadSummary($hospital_id,$year,$group_id,$value=1){
+      $evauateScores = EvauateScore::find()
+
+        ->byUser()
+        ->byHospital($hospital_id)
+        ->byYear($year)
+        ->byGroup($group_id)
+        ->sumByValue($value)
+        ->asArray()
+        ->sum('value');
       return $evauateScores;
     }
 
@@ -122,8 +140,13 @@ class EvauateScoreController extends Controller
      * @param  [type] $year        [description]
      * @return [type]              [description]
      */
-    public function createEvauateScoreModels($hospital_id,$year){
-      $items = KpiItem::find()->indexBy('id')->all();
+    public function createEvauateScoreModels($hospital_id,$year,$group_id=null){
+
+      $items  = KpiItem::find()
+      ->byGroup($group_id)
+      ->indexBy('group_id')
+      ->all();
+
       $evauateScores = [];
       foreach($items as $item){
         $evauateScores[] = new EvauateScore([
@@ -132,32 +155,23 @@ class EvauateScoreController extends Controller
           'theBest'=> $item->the_best,
           'year' => $year,
           'level' => Yii::$app->user->identity->level,
-          'hospital_id'=> $hospital_id
+          'hospital_id'=> $hospital_id,
+          'groupName'=>$item->group->name
         ]);
       }
       return $evauateScores;
     }
 
-
-
-    /**
-     * Updates an existing EvauateScore model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
+    public function loadDefaultGroup($group_id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+      if($group_id==null){
+        $groupHead = Group::find()->byHead()->all();
+        $group_id = $groupHead[0]->id;
+      }
+      return $group_id;
     }
+
+
 
     /**
      * Deletes an existing EvauateScore model.
@@ -195,6 +209,10 @@ class EvauateScoreController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    function actionSummary(){
+        return $this->render('');
     }
 
 

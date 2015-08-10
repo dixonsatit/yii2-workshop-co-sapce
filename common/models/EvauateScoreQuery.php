@@ -33,6 +33,21 @@ class EvauateScoreQuery extends \yii\db\ActiveQuery
         return $this;
     }
 
+    public function byGroup($group_id){
+      $this->innerJoinWith([
+          'kpi'=>function($q) use ($group_id){
+               $q->byGroup($group_id);
+          }
+      ]);
+      return $this;
+    }
+
+    public function sumByValue($value){
+      $this->andWhere('value=:value',['value'=>$value]);
+      return $this;
+    }
+
+
 
     /**
      * @inheritdoc

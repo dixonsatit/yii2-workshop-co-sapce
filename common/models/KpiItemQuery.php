@@ -9,11 +9,11 @@ namespace common\models;
  */
 class KpiItemQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function byGroup($group_id)
     {
-        $this->andWhere('[[status]]=1');
+        $this->joinWith('group')->andWhere('group.parent_id=:parent_id',[':parent_id'=>$group_id]);
         return $this;
-    }*/
+    }
 
     /**
      * @inheritdoc
