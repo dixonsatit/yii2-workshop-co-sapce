@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $the_must
- * @property string $the_base
+ * @property string $the_best
  * @property integer $group_id
  *
  * @property EvauateScore[] $evauateScores
@@ -30,7 +30,7 @@ class KpiItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['the_must', 'the_base'], 'string'],
+            [['the_must', 'the_best'], 'string'],
             [['group_id'], 'integer']
         ];
     }
@@ -43,7 +43,7 @@ class KpiItem extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'the_must' => Yii::t('app', 'The Must'),
-            'the_base' => Yii::t('app', 'The Base'),
+            'the_best' => Yii::t('app', 'The Best'),
             'group_id' => Yii::t('app', 'Group ID'),
         ];
     }

@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
-
+use yii\base\Model;
 use common\models\Group;
 use common\models\KpiItem;
 use common\models\Hospital;
@@ -68,34 +68,77 @@ class EvauateScoreController extends Controller
      */
     public function actionCreate($hospital_id)
     {
-        $model   = new EvauateScore();
-        $group   = Group::find()->all();
-        $kpiItem = KpiItem::find()->indexBy('id')->all();
+        $models   = $this->loadEvauateScoreModels($hospital_id,'2558');
+        $group    = Group::find()->all();
+        $kpiItem  = KpiItem::find()->indexBy('id')->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model'   => $model,
-                'group'   => $group,
-                'kpiItem' => $kpiItem,
-            ]);
+        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+            foreach ($models as $model) {
+                $model->save(false);
+            }
+            return $this->redirect(['evauate-score/create','hospital_id'=>$hospital_id]);
         }
+
+        return $this->render('create', [
+            'models'   => $models,
+            'group'   => $group,
+            'kpiItem' => $kpiItem,
+        ]);
     }
 
-    public function createRecord($hospital_id,$year){
+    /**
+     * [ check is empty EvauateScore]
+     * @param  integer $hospital_id
+     * @param  string $year
+     * @return array  EvauateScore
+     */
+    public function loadEvauateScoreModels($hospital_id,$year){
+      $models = $this->findEvauateScoreModels($hospital_id,$year);
+      if(count($models)>0){
+        return $models;
+      }else{
+        return $this->createEvauateScoreModels($hospital_id,$year);
+      }
+    }
+
+    /**
+     * [findEvauateScoreModels description]
+     * @param  [type] $hospital_id [description]
+     * @param  [type] $year        [description]
+     * @return [type]              [description]
+     */
+    public function findEvauateScoreModels($hospital_id,$year){
+      $evauateScores = EvauateScore::find()
+        ->byUser()
+        ->byHospital($hospital_id)
+        ->byYear($year)
+        ->all();
+      return $evauateScores;
+    }
+
+    /**
+     * [createEvauateScoreModels description]
+     * @param  [type] $hospital_id [description]
+     * @param  [type] $year        [description]
+     * @return [type]              [description]
+     */
+    public function createEvauateScoreModels($hospital_id,$year){
       $items = KpiItem::find()->indexBy('id')->all();
       $evauateScores = [];
       foreach($items as $item){
-        $evauateScores[] = new EvauateScore({
-          'kpi_id'=>$item->id,
+        $evauateScores[] = new EvauateScore([
+          'kpi_id'=> $item->id,
+          'theMust'=> $item->the_must,
+          'theBest'=> $item->the_best,
           'year' => $year,
-          'level' => Yii::$app->app->user->identity->level
-          'hospitall_id'=>$hospital_id
-        });
+          'level' => Yii::$app->user->identity->level,
+          'hospital_id'=> $hospital_id
+        ]);
       }
       return $evauateScores;
     }
+
+
 
     /**
      * Updates an existing EvauateScore model.

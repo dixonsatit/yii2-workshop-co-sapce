@@ -3,7 +3,10 @@
 namespace common\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "{{%evauate_score}}".
  *
@@ -13,13 +16,16 @@ use Yii;
  * @property integer $value
  * @property string $year
  * @property integer $level
- * @property string $hospitall_id
+ * @property string $hospital_id
  *
  * @property KpiItem $kpi
  * @property User $user
  */
 class EvauateScore extends \yii\db\ActiveRecord
 {
+  public $theMust;
+  public $theBest;
+
   public function behaviors()
   {
       return [
@@ -32,6 +38,24 @@ class EvauateScore extends \yii\db\ActiveRecord
               'class' => BlameableBehavior::className(),
               'createdByAttribute'=>'user_id',
               'updatedByAttribute' => 'user_id',
+          ],
+          [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_AFTER_FIND => 'theMust'
+              ],
+              'value' => function ($event) {
+                  return $this->kpi->the_must;
+              },
+          ],
+          [
+              'class' => AttributeBehavior::className(),
+              'attributes' => [
+                  ActiveRecord::EVENT_AFTER_FIND => 'theBest'
+              ],
+              'value' => function ($event) {
+                  return $this->kpi->the_best;
+              },
           ]
       ];
   }
@@ -51,8 +75,8 @@ class EvauateScore extends \yii\db\ActiveRecord
         return [
             [['kpi_id', 'user_id', 'value', 'level'], 'integer'],
             [['year'], 'string', 'max' => 4],
-            [['hospitall_id'], 'string', 'max' => 6],
-            [['kpi_id', 'user_id', 'year', 'level', 'hospitall_id'], 'unique', 'targetAttribute' => ['kpi_id', 'user_id', 'year', 'level', 'hospitall_id'], 'message' => 'The combination of Kpi ID, User ID, Year, Level and Hospitall Code has already been taken.']
+            [['hospital_id'], 'string', 'max' => 6],
+            [['kpi_id', 'user_id', 'year', 'level', 'hospital_id'], 'unique', 'targetAttribute' => ['kpi_id', 'user_id', 'year', 'level', 'hospital_id'], 'message' => 'The combination of Kpi ID, User ID, Year, Level and Hospitall Code has already been taken.']
         ];
     }
 
@@ -68,7 +92,7 @@ class EvauateScore extends \yii\db\ActiveRecord
             'value' => Yii::t('app', 'Value'),
             'year' => Yii::t('app', 'Year'),
             'level' => Yii::t('app', 'Level'),
-            'hospitall_id' => Yii::t('app', 'Hospitall Code'),
+            'hospital_id' => Yii::t('app', 'Hospitall Code'),
         ];
     }
 

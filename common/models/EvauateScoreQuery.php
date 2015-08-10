@@ -15,6 +15,25 @@ class EvauateScoreQuery extends \yii\db\ActiveQuery
         return $this;
     }
 
+    public function byHospital($hospital_id)
+    {
+        $this->andWhere('hospital_id=:hospital_id',[':hospital_id' => $hospital_id]);
+        return $this;
+    }
+
+    public function byYear($year)
+    {
+        $this->andWhere('year=:year',[':year' => $year]);
+        return $this;
+    }
+
+    public function byLevel($level)
+    {
+        $this->andWhere('level=:level',[':level' => $level]);
+        return $this;
+    }
+
+
     /**
      * @inheritdoc
      * @return EvauateScore[]|array

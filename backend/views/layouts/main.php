@@ -39,6 +39,8 @@ AppAsset::register($this);
         ['label' => 'Manage','items'=>[
           ['label' => 'User Manage', 'url' => ['/user-manage/index']],
           ['label' => 'Hospital', 'url' => ['/hospital/index']],
+          ['label' => 'KPI-Items', 'url' => ['/kpi-item/index']],
+          ['label' => 'Group', 'url' => ['/group/index']],
           ['label' => 'Hospital Assignment', 'url' => ['/hospital-assignment/index']],
         ]],
 
