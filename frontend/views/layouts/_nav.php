@@ -21,16 +21,19 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 } else {
-    $menuItems[] = ['label' => 'ประเมิน', 'url' => ['/evauate-score/index']];
+    $menuItems[] = ['label' => 'ประเมินผล', 'url' => ['/evauate-score/index']];
     $menuItems[] = [
         'label' => 'Profile (' . Yii::$app->user->identity->username . ')',
         'items'=>[
             ['label' => 'โปรไฟล์', 'url' => ['/profile/index']],
             ['label' => 'แข้ไขโปรไฟล์', 'url' => ['/profile/update']],
+            ['label' => 'Admin', 'url' => ''],
+            ['label' => 'Demo Report ภาษาไทย', 'url' => ['/report/index']],
             [ 'label'=>'Logout','url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']]
         ]
     ];
 }
+
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => $menuItems,

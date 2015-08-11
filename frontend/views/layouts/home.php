@@ -4,7 +4,8 @@ use common\widgets\Alert;
  ?>
 <?php $this->beginContent('@app/views/layouts/_base.php'); ?>
 <div class="wrap">
-<h1>Dixon <small> @khon kaen</small></h1>
+
+<h1>HOME <small> @khon kaen</small></h1>
 
     <div class="container">
         <?= Breadcrumbs::widget([

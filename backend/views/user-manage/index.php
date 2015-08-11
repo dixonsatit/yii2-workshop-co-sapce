@@ -23,19 +23,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'username',
             // 'auth_key',
             // 'password_hash',
             // 'password_reset_token',
             'email:email',
+            [
+              'label'=>'Active',
+              'format'=>'html',
+              'value'=>function($model){
+                  return Html::a(
+                  ($model->status==0?'<i class="glyphicon glyphicon-remove"></i> Not Active':'<i class="glyphicon glyphicon-ok"></i> Active'),'#',
+                  ['class'=>'btn btn-block btn-sm'.($model->status==0?' btn-default':' btn-success')]);
+              }
+            ],
             // 'status',
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+              'class' => 'yii\grid\ActionColumn',
+              'options'=>['style'=>'width:120px;'],
+              'buttonOptions'=>['class'=>'btn btn-default'],
+              'template'=>'<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete} </div>'
+           ],
         ],
     ]); ?>
 

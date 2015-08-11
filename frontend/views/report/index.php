@@ -1,4 +1,5 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<h1>หกด/index</h1>
+<h1>Yii 2 Learning</h1>
+<small>ทดสอบภาษาไทย</small>

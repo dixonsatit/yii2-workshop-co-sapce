@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\EvauateScore */
 
-$this->title = Yii::t('app', 'Create Evauate Score');
+$this->title = 'ประเมินผล';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Evauate Scores'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
