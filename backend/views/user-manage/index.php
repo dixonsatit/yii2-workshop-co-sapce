@@ -40,6 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
                   ['class'=>'btn btn-block btn-sm'.($model->status==0?' btn-default':' btn-success')]);
               }
             ],
+            [
+              'attribute'=>'levelName',
+              'format'=>'html',
+              'value'=>function($model){
+                return '<a class="btn btn-default btn-block">'.$model->levelName.'</a>';
+              }
+            ],
             // 'status',
             // 'created_at',
             // 'updated_at',

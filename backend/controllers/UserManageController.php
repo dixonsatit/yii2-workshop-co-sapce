@@ -8,6 +8,7 @@ use backend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserManageController implements the CRUD actions for User model.
@@ -23,6 +24,15 @@ class UserManageController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access'=>[
+               'class'=>AccessControl::className(),
+               'rules'=>[
+                  [
+                      'allow'=>true,
+                      'roles' => ['Manager']
+                  ]
+                ]
+            ]
         ];
     }
 

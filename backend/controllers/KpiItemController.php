@@ -8,6 +8,7 @@ use backend\models\KpiItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * KpiItemController implements the CRUD actions for KpiItem model.
@@ -23,6 +24,15 @@ class KpiItemController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access'=>[
+               'class'=>AccessControl::className(),
+               'rules'=>[
+                  [
+                      'allow'=>true,
+                      'roles' => ['Manager']
+                  ]
+                ]
+            ]
         ];
     }
 

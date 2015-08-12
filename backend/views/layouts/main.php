@@ -43,7 +43,7 @@ AppAsset::register($this);
           ['label' => 'KPI-Items', 'url' => ['/kpi-item/index']],
           ['label' => 'Group', 'url' => ['/group/index']],
           ['label' => 'Hospital Assignment', 'url' => ['/hospital-assignment/index']],
-        ]],
+        ],'visible'=>!Yii::$app->user->isGuest],
 
     ];
     if (Yii::$app->user->isGuest) {

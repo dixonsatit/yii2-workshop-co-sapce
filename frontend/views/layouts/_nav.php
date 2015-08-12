@@ -13,23 +13,25 @@ NavBar::begin([
     ],
 ]);
 $menuItems = [
-    ['label' => 'Home', 'url' => ['/site/index']],
-    ['label' => 'About', 'url' => ['/site/about']],
-    ['label' => 'Contact', 'url' => ['/site/contact']],
+    ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
+    ['label' => 'ประเมินผล', 'url' => ['/evauate-score/index'],'visible'=>!Yii::$app->user->isGuest],
+    ['label' => 'รายงาน', 'url' => ['/report/index']],
+    //['label' => 'About', 'url' => ['/site/about']],
+    //['label' => 'Contact', 'url' => ['/site/contact']],
 ];
+
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 } else {
-    $menuItems[] = ['label' => 'ประเมินผล', 'url' => ['/evauate-score/index']];
+
     $menuItems[] = [
-        'label' => 'Profile (' . Yii::$app->user->identity->username . ')',
+        'label' => 'ข้อมูลบัญชี (' . Yii::$app->user->identity->username . ')',
         'items'=>[
             ['label' => 'โปรไฟล์', 'url' => ['/profile/index']],
             ['label' => 'แข้ไขโปรไฟล์', 'url' => ['/profile/update']],
-            ['label' => 'Admin', 'url' => ''],
-            ['label' => 'Demo Report ภาษาไทย', 'url' => ['/report/index']],
-            [ 'label'=>'Logout','url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']]
+            ['label' => 'ระบบจัดการข้อมูล', 'url' => ''],
+            [ 'label'=>'ออกจากระบบ','url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']]
         ]
     ];
 }
