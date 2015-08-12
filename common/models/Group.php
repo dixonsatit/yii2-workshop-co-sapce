@@ -52,4 +52,25 @@ class Group extends \yii\db\ActiveRecord
     {
         return new GroupQuery(get_called_class());
     }
+
+    /**
+     * [getHierarchy description]
+     * @return [type] [description]
+     * @url - See more at: http://blog.smartwebsitetips.com/502/yii2-dropdown-select-optgroup/#sthash.quxZtEMW.dpuf
+     */
+    public static function getHierarchy() {
+        $options = [];
+
+        $parents = self::find()->where("parent_id is null")->all();
+        foreach($parents as $id => $p) {
+            $children = self::find()->where("parent_id=:parent_id", [":parent_id"=>$p->id])->all();
+            $child_options = [];
+            foreach($children as $child) {
+                $child_options[$child->id] = $child->name;
+            }
+            $options[$p->name] = $child_options;
+        }
+        return $options;
+    }
+
 }

@@ -18,14 +18,17 @@ use kartik\widgets\Select2;
 
     <?= $form->field($model, 'the_best')->textarea(['rows' => 6]) ?>
 
-  
+  <?php //$form->field($model, 'group_id')->dropdownList(Group::getHierarchy()) ?>
     <?= $form->field($model, 'group_id')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Group::find()->all(),'id','name'),
+        //'data' => ArrayHelper::map(Group::find()->all(),'id','name'),
+        'data' =>Group::getHierarchy(),
         'options' => ['placeholder' => 'เลือกหัวข้อ ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ]);
+
+    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
