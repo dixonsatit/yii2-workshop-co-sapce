@@ -57,8 +57,8 @@ $groups =  Group::find()->byHead()->all();
 
               <tr>
 
-              <th style="padding-left:35px;">- <?= $model->theMust; ?></th>
-              <th><?= $model->theBest; ?></th>
+              <td style="padding-left:35px;">- <?= $model->theMust; ?></td>
+              <td><?= $model->theBest; ?></td>
               <td>
                   <?php //$form->field($model, "[$index]value")->radio(['value'=>'9','uncheck'=>null])->label(false) ?>
                   <?= Html::activeRadio($model, "[$index]value",['value'=>'9','uncheck'=>null,'label'=>null]); ?>
@@ -97,7 +97,7 @@ $groups =  Group::find()->byHead()->all();
     </table>
 
     <div class="form-group">
-        <?= Html::submitButton('Create', ['class' =>'btn btn-success btn-lg btn-block']) ?>
+        <?= Html::submitButton('บันทึกข้อมูล', ['class' =>'btn btn-success btn-lg btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

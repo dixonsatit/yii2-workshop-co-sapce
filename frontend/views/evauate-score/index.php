@@ -19,8 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
       <p>โปรดติดต่อผู้ดูแลระบบ...</p>
     </div>
   <?php endif; ?>
-
-
     <?php if($dataProvider->getCount()>0): ?>
       <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
     <?= GridView::widget([

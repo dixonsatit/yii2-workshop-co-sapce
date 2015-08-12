@@ -16,7 +16,7 @@ use frontend\models\HospitalAssignmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * EvauateScoreController implements the CRUD actions for EvauateScore model.
  */
@@ -31,6 +31,15 @@ class EvauateScoreController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access'=>[
+                'class'=>AccessControl::className(),
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'roles'=>['User','Provinceial','Country']
+                    ]
+                ]
+            ]
         ];
     }
 
@@ -144,8 +153,9 @@ class EvauateScoreController extends Controller
 
       $items  = KpiItem::find()
       ->byGroup($group_id)
-      ->indexBy('group_id')
+      ->orderBy('group_id')
       ->all();
+
 
       $evauateScores = [];
       foreach($items as $item){
