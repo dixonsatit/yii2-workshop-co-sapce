@@ -11,7 +11,7 @@ use yii\bootstrap\ActiveForm;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+<div class="well">
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
     <div class="row">
@@ -24,10 +24,20 @@ use yii\bootstrap\ActiveForm;
     </div>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'role')->checkBoxList($model->getItemRole()) ?>
-
-    <?= $form->field($model, 'status')->radioList($model->getItemStatus()) ?>
+</div>
+<div class="well">
+    <div class="row">
+      <div class="col-lg-4">
+        <?= $form->field($model, 'role')->checkBoxList($model->getItemRole()) ?>
+      </div>
+      <div class="col-lg-4">
+        <?= $form->field($model, 'level')->radioList($model->getItemLevel()) ?>
+      </div>
+      <div class="col-lg-4">
+        <?= $form->field($model, 'status')->radioList($model->getItemStatus()) ?>
+      </div>
+    </div>
+</div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
