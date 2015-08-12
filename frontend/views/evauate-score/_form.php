@@ -53,7 +53,10 @@ $groups =  Group::find()->byHead()->all();
                 </th>
               </tr>
               <tr>
-            <?php endif; ?>
+            <?php
+            $group = $model->groupName;
+            endif;
+           ?>
 
               <tr>
 
@@ -79,11 +82,6 @@ $groups =  Group::find()->byHead()->all();
 
               </td>
             </tr>
-            <?php
-              if($group==null){
-                $group = $model->groupName;
-              }
-            ?>
             <?= $form->field($model, "[$index]year")->hiddenInput()->label(false) ?>
             <?= $form->field($model, "[$index]kpi_id")->hiddenInput()->label(false) ?>
           <?php endforeach; ?>
