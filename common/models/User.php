@@ -33,6 +33,9 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADMINISTRATOR = 'Administrator';
     const ROLE_REPORTS = 'Reports';
 
+    const SCENARIO_USERMANAGE = 'default';
+    const SCENARIO_REGISTER ='register';
+
     public $password;
     public $confirm_password;
     public $role;
@@ -84,6 +87,14 @@ class User extends ActiveRecord implements IdentityInterface
              ['role', 'safe'],
              ['level', 'integer'],
 
+         ];
+     }
+
+     public function scenarios()
+     {
+         return [
+             self::SCENARIO_USERMANAGE => ['username', 'password','confirm_password','email','status','level','role'],
+             self::SCENARIO_REGISTER => ['username', 'email'],
          ];
      }
     /**
@@ -236,6 +247,11 @@ class User extends ActiveRecord implements IdentityInterface
             self::ROLE_COUNTRY => 'Country',
             self::ROLE_ADMINISTRATOR => 'Administrator',
             self::ROLE_REPORTS => 'Reports'
+        ],
+        'level' => [
+            self::LEVEL_1 => 'ระดับที่ 1',
+            self::LEVEL_2 => 'ระดับที่ 2',
+            self::LEVEL_3 => 'ระดับที่ 3'
         ]
     ];
     return array_key_exists($id, $items) ? $items[$id] : [];

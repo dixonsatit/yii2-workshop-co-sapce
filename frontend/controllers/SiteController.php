@@ -215,25 +215,4 @@ class SiteController extends Controller
         ]);
     }
 
-    public function LoadSalary($params){
-      return 5 * $params;
-    }
-
-    public function actionHome($id,$a,$b=null)
-    {
-      $salary = $this->LoadSalary(10000);
-      $fullname = 'satit Seethaphon';
-      $values = [
-        'title'=>'นาย',
-        'name'=>'สาธิต',
-        'lastname'=>'สีถาพล'
-      ];
-
-      return $this->render('home',[
-        'fullanme'=>$fullname,
-        'salary' => $salary,
-        'values'=>$values,
-        'id'=>$id
-      ]);
-    }
 }
