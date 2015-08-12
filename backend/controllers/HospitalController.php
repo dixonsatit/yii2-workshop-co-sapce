@@ -8,6 +8,7 @@ use backend\models\HospitalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * HospitalController implements the CRUD actions for Hospital model.
@@ -23,6 +24,15 @@ class HospitalController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+            'access'=>[
+               'class'=>AccessControl::className(),
+               'rules'=>[
+                  [
+                      'allow'=>true,
+                      'roles' => ['Manager']
+                  ]
+                ]
+            ]
         ];
     }
 

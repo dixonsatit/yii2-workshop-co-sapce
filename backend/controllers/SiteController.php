@@ -29,7 +29,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout', 'index','report'],
                         'allow' => true,
-                        'roles' => ['Administrator'],
+                        'roles' => ['Manager'],
                     ],
                 ],
             ],

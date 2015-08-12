@@ -235,7 +235,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function AttributeLabels(){
       return [
-        'status'=>'Active'
+        'status'=>'Active',
+        'levelName'=>'ระดับผู้ประเมิน'
       ];
     }
 
@@ -273,7 +274,10 @@ class User extends ActiveRecord implements IdentityInterface
   public function getItemLevel(){
       return self::getItemsAlias('level');
   }
-
+  public function getLevelName(){
+      $items =  $this->getItemLevel();
+      return array_key_exists($this->level, $items) ? $items[$this->level] : null;
+  }
   public function getStatusName(){
       $items =  $this->getItemStatus();
       return array_key_exists($this->status, $items) ? $items[$this->status] : null;

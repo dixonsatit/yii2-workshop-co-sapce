@@ -16,7 +16,7 @@ use yii\web\JsExpression;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'parent_id')->dropdownList(ArrayHelper::map(Group::find()->all(),'id','name')) ?>
+    <?= $form->field($model, 'parent_id')->dropdownList(ArrayHelper::merge([null=>'None'],Group::getHierarchy())) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

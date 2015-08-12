@@ -54,6 +54,8 @@ class RbacController extends Controller
         /**
          * ********** addChild ****************************
          */
+        $auth->addChild($manager,$loginToBackend);
+
         $auth->addChild($administrator,$user);
         $auth->addChild($administrator,$manager);
         $auth->addChild($manager,$user);
@@ -61,7 +63,6 @@ class RbacController extends Controller
         $auth->addChild($administrator,$country);
         $auth->addChild($administrator,$reports);
 
-        $auth->addChild($administrator,$loginToBackend);
 
 
 
