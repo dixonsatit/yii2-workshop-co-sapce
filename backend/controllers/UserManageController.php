@@ -87,10 +87,23 @@ class UserManageController extends Controller
     {
         $model = $this->findModel($id);
         $model->getRoles();
-        print_r($model->role);
+        $model->password = $model->password_hash;
+        $model->confirm_password = $model->password_hash;
+        $oldPass = $model->password_hash;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+          if($oldPass!==$model->password){
+            $model->setPassword($model->password);
+          }
+
+          if($model->save()){
+            Yii::$app->getSession()->setFlash('success', 'บันทึกเสร็จเรียบร้อย');
             return $this->redirect(['view', 'id' => $model->id]);
+          }else{
+            throw new NotFoundHttpException('พบข้อผิดพลาด!.');
+          }
+
+
         } else {
             return $this->render('update', [
                 'model' => $model,

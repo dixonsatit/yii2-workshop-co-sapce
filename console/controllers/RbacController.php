@@ -17,9 +17,15 @@ class RbacController extends Controller
          * ********** Permission ****************************
          */
 
+        $loginToBackend = $auth->createPermission('loginToBackend');
+        $loginToBackend->description = 'ยอมให้เข้าใช้งานหลังบ้าน';
+        $auth->add($loginToBackend);
+
         $report1 = $auth->createPermission('Report1');
         $report1->description = 'ดูรายงานส่วนที่ 1';
         $auth->add($report1);
+
+
 
 
 
@@ -54,6 +60,10 @@ class RbacController extends Controller
         $auth->addChild($administrator,$provinceial);
         $auth->addChild($administrator,$country);
         $auth->addChild($administrator,$reports);
+
+        $auth->addChild($administrator,$loginToBackend);
+
+
 
         /**
          * ********** Assignment ****************************

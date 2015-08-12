@@ -36,6 +36,11 @@ class User extends ActiveRecord implements IdentityInterface
     const SCENARIO_USERMANAGE = 'default';
     const SCENARIO_REGISTER ='register';
 
+    const LEVEL_0 = 0;
+    const LEVEL_1 = 1;
+    const LEVEL_2 = 2;
+    const LEVEL_3 = 3;
+
     public $password;
     public $confirm_password;
     public $role;
@@ -249,9 +254,10 @@ class User extends ActiveRecord implements IdentityInterface
             self::ROLE_REPORTS => 'Reports'
         ],
         'level' => [
-            self::LEVEL_1 => 'ระดับที่ 1',
-            self::LEVEL_2 => 'ระดับที่ 2',
-            self::LEVEL_3 => 'ระดับที่ 3'
+            self::LEVEL_0 => 'ไม่ได้ประเมิน',
+            self::LEVEL_1 => 'ประเมินระดับที่ 1',
+            self::LEVEL_2 => 'ประเมินระดับที่ 2',
+            self::LEVEL_3 => 'ประเมินระดับที่ 3'
         ]
     ];
     return array_key_exists($id, $items) ? $items[$id] : [];
@@ -263,6 +269,9 @@ class User extends ActiveRecord implements IdentityInterface
 
   public function getItemStatus(){
       return self::getItemsAlias('status');
+  }
+  public function getItemLevel(){
+      return self::getItemsAlias('level');
   }
 
   public function getStatusName(){

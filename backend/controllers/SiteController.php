@@ -29,7 +29,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['logout', 'index','report'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['Administrator'],
                     ],
                 ],
             ],
@@ -61,6 +61,8 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
