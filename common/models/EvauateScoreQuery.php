@@ -9,9 +9,9 @@ use Yii;
  */
 class EvauateScoreQuery extends \yii\db\ActiveQuery
 {
-    public function byUser()
+    public function byUser($user_id=null)
     {
-        $this->andWhere('user_id=:user_id',[':user_id'=>Yii::$app->user->id]);
+        $this->andWhere('user_id=:user_id',[':user_id'=>$user_id===null ? Yii::$app->user->id : $user_id]);
         return $this;
     }
 
