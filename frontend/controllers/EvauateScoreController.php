@@ -80,8 +80,12 @@ class EvauateScoreController extends Controller
         $group_id = $this->loadDefaultGroup($group_id);
         $models   = $this->loadEvauateScoreModels($hospital_id,'2558',$group_id);
 
-        $sumTheMust  = $this->loadSummary($hospital_id,'2558',$group_id,1);
-        $sumTheBest  = $this->loadSummary($hospital_id,'2558',$group_id,2);
+        $sumTheMust  = $this->loadSummaryByUser($hospital_id,'2558',$group_id,1);
+        $sumTheBest  = $this->loadSummaryByUser($hospital_id,'2558',$group_id,2);
+
+         $sumTheMustLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,1,1);
+         $sumTheBestLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,2,1);
+
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             foreach ($models as $model) {
@@ -130,10 +134,20 @@ class EvauateScoreController extends Controller
       return $evauateScores;
     }
 
-    public function loadSummary($hospital_id,$year,$group_id,$value=1){
+    public function loadSummaryByUser($hospital_id,$year,$group_id,$value=1){
       $evauateScores = EvauateScore::find()
-
         ->byUser()
+        ->byHospital($hospital_id)
+        ->byYear($year)
+        ->byGroup($group_id)
+        ->sumByValue($value)
+        ->asArray()
+        ->sum('value');
+      return $evauateScores;
+    }
+    public function loadSummaryLevel($hospital_id,$year,$group_id,$value=1,$level=1){
+      $evauateScores = EvauateScore::find()
+        ->byLevel($level)
         ->byHospital($hospital_id)
         ->byYear($year)
         ->byGroup($group_id)
