@@ -83,8 +83,8 @@ class EvauateScoreController extends Controller
         $sumTheMust  = $this->loadSummaryByUser($hospital_id,'2558',$group_id,1);
         $sumTheBest  = $this->loadSummaryByUser($hospital_id,'2558',$group_id,2);
 
-         $sumTheMustLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,1,1);
-         $sumTheBestLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,2,1);
+        $sumTheMustLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,1,1);
+        $sumTheBestLevel1  = $this->loadSummaryLevel($hospital_id,'2558',$group_id,2,1);
 
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {

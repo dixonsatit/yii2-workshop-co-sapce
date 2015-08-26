@@ -23,6 +23,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $total;
+
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
@@ -305,5 +307,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
     $this->role = $roleSelect;
   }
+
+  /**
+  * @inheritdoc
+  * @return UserQuery the active query used by this AR class.
+  */
+ public static function find()
+ {
+     return new UserQuery(get_called_class());
+ }
 
 }

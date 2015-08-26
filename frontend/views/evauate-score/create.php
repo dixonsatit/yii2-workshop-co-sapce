@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-
+use common\models\Hospital;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\EvauateScore */
@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evauate-score-create">
   <div class="page-header" style="margin-bottom:60px;">
-    <h1><?= Html::encode($this->title) ?> <small>คุณภาพโรงพยาบาล</small></h1>
+    <h1><?= Html::encode($this->title) ?> <small> : <?= @Hospital::findOne($hospital_id)->name ?></small></h1>
   </div>
 
     <?= $this->render('_form', [

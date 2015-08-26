@@ -42,6 +42,7 @@ class UserManageController extends Controller
      */
     public function actionIndex()
     {
+        //\yii\helpers\VarDumper::dump(User::find()->groupByStatus()->all(),10,true);
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
