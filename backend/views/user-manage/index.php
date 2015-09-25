@@ -34,13 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   ],
                   'columns' => [
                       ['class' => 'yii\grid\SerialColumn'],
-
-                      //'id',
-                      'username',
-                      // 'auth_key',
-                      // 'password_hash',
-                      // 'password_reset_token',
-                      'email:email',
+                      'total',
                       [
                         'label'=>'Active',
                         'attribute'=>'status',
@@ -50,6 +44,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->status==0?'<i class="glyphicon glyphicon-remove"></i> <span class="text-danger">Not Active</span>':'<i class="glyphicon glyphicon-ok"></i> <span class="text-success">Active</span>';
                         }
                       ],
+                      //'id',
+                      'username',
+                      // 'auth_key',
+                      // 'password_hash',
+                      // 'password_reset_token',
+                      'email:email',
+                      // [
+                      //   'label'=>'Active',
+                      //   'attribute'=>'status',
+                      //   'filter'=>$searchModel->getItemStatus(),
+                      //   'format'=>'html',
+                      //   'value'=>function($model){
+                      //       return $model->status==0?'<i class="glyphicon glyphicon-remove"></i> <span class="text-danger">Not Active</span>':'<i class="glyphicon glyphicon-ok"></i> <span class="text-success">Active</span>';
+                      //   }
+                      // ],
                       [
                         'attribute'=>'level',
                         'filter'=>$searchModel->getItemLevel(),

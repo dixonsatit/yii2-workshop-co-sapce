@@ -42,7 +42,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = User::find()->groupByStatus();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -12,13 +12,14 @@ use common\models\HospitalAssignment;
  */
 class HospitalAssignmentSearch extends HospitalAssignment
 {
+    public $province_id;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'hospital_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'user_id', 'hospital_id', 'created_at', 'updated_at', 'created_by', 'updated_by','province_id'], 'integer'],
         ];
     }
 
@@ -40,7 +41,9 @@ class HospitalAssignmentSearch extends HospitalAssignment
      */
     public function search($params)
     {
-        $query = HospitalAssignment::find()->byUser();
+        $query = HospitalAssignment::find()
+        ->byHospitalProvince()
+        ->byUser();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,6 +58,11 @@ class HospitalAssignmentSearch extends HospitalAssignment
         }
 
         $query->andFilterWhere([
+          'province.PROVINCE_ID' => $this->province_id,
+        ]);
+
+
+        $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
             'hospital_id' => $this->hospital_id,
@@ -62,6 +70,7 @@ class HospitalAssignmentSearch extends HospitalAssignment
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
+
         ]);
 
         return $dataProvider;

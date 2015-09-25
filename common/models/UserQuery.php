@@ -3,21 +3,23 @@
 namespace common\models;
 
 /**
- * This is the ActiveQuery class for [[Hospital]].
+ * This is the ActiveQuery class for [[User]].
  *
- * @see Hospital
+ * @see User
  */
-class HospitalQuery extends \yii\db\ActiveQuery
+class UserQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
+    public function groupByStatus()
     {
-        $this->andWhere('[[status]]=1');
+        $this
+        ->select('count(*) as total,user.*')
+        ->groupBy('status');
         return $this;
-    }*/
+    }
 
     /**
      * @inheritdoc
-     * @return Hospital[]|array
+     * @return User[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +28,7 @@ class HospitalQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Hospital|array|null
+     * @return User|array|null
      */
     public function one($db = null)
     {

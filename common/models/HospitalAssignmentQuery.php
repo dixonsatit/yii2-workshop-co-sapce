@@ -16,6 +16,15 @@ class HospitalAssignmentQuery extends \yii\db\ActiveQuery
         return $this;
     }
 
+    public function byHospitalProvince(){
+      $this->joinWith([
+        'hospital'=>function($q){
+            $q->joinWith('province');
+          }
+       ]);
+       return $this;
+    }
+
     /**
      * @inheritdoc
      * @return HospitalAssignment[]|array
