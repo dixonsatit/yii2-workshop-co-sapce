@@ -48,7 +48,7 @@ class EvauateScoreController extends Controller
      * @return mixed
      */
      public function actionIndex()
-     {
+     { 
          $searchModel = new HospitalAssignmentSearch();
          $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

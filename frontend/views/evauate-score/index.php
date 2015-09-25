@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
+use common\models\HospitalAssignment;
+//var_dump($dataProvider->getModels());
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\HospitalSearch */
@@ -28,6 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'hospital.code',
             'hospital.name',
+            [
+                'attribute'=>'province_id',
+                'filter'=>ArrayHelper::map(HospitalAssignment::find()->byHospitalProvince()->byUser()->all(),'hospital.province.PROVINCE_ID','hospital.province.PROVINCE_NAME'),
+                'value'=>function($model){
+                  return $model->hospital->province->PROVINCE_NAME;
+                }
+            ],
             [
               'label'=>'Actoin',
               'format'=>'raw',

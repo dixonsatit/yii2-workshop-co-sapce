@@ -3,11 +3,11 @@
 namespace common\models;
 
 /**
- * This is the ActiveQuery class for [[Hospital]].
+ * This is the ActiveQuery class for [[Province]].
  *
- * @see Hospital
+ * @see Province
  */
-class HospitalQuery extends \yii\db\ActiveQuery
+class ProvinceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -17,7 +17,7 @@ class HospitalQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Hospital[]|array
+     * @return Province[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +26,7 @@ class HospitalQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Hospital|array|null
+     * @return Province|array|null
      */
     public function one($db = null)
     {
